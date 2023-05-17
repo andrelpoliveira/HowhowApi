@@ -18,7 +18,7 @@ class Categorie extends Model
         'active',
     ];
 
-    public function user(): BelongsTo
+    public function parentCategorie(): BelongsTo
     {
         return $this->belongsTo(ParentCategorie::class, 'belongs_to');
     }
