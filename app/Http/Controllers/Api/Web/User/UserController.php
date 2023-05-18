@@ -8,6 +8,7 @@ use App\Http\Requests\User\UpdateAgencyRequest;
 use App\Http\Requests\User\UpdateBrandRequest;
 use App\Http\Requests\User\UpdateInfluencerRequest;
 use App\Http\Requests\User\WrapUpRegisterRequest;
+use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\UserSelfResource;
 use App\Traits\HttpResponses;
 use App\Models\User;
@@ -267,5 +268,20 @@ class UserController extends Controller
     public function getSelf()
     {
         return new UserSelfResource(auth()->user());
+    }
+
+    public function getInfluencers()
+    {
+        $user = auth()->user();
+        
+        if($user->role == 'brand')
+        {
+            return CategoriesResource::collection(User::where(['role' => 'influencer'])->get());
+        }
+        else
+        {
+            return $this->dosentOwnRights();
+        }
+
     }
 }
