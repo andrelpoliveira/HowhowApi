@@ -65,7 +65,6 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::patch('/agency',         [UserController::class , 'updateAgency']);
     });
     
-
     Route::group(['prefix' => 'campaign'], function()
     {
         
@@ -93,6 +92,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     });
 
+    Route::group(['prefix' => 'brand'], function()
+    {
+        Route::get('/getInfluencers',   [UserController::class, 'getInfluencers']);
+    });
     //Muda o estado de confirmação do influenciador 
     Route::patch('/changeConfirmaitonStatus',[CampaignParticipants::class, 'changeInfluencerConfirmationStatus']);
 
