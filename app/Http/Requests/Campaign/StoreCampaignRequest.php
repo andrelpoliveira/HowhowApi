@@ -30,7 +30,8 @@ class StoreCampaignRequest extends FormRequest
             'states'            =>  ['string'],
             'line_of_business'  =>  ['required' , 'string'],
             'category'          =>  ['string'],
-            'social_media'      =>  ['string'],
+            'social_media'      =>  ['required' , 'string'],
+            'content_type'      =>  ['required' , 'string'],
             'type'              =>  ['required' , 'string'],
             'private'           =>  ['required' , 'string'],
             'campaign_photo'    =>  ['required' , 'max:5120' , 'mimes:png,jpg,jpeg']
