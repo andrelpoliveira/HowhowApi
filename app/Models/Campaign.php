@@ -26,8 +26,9 @@ class Campaign extends Model
         'line_of_business',
         'category',
         'social_media',
-        'type',
+        'content_type',
         'private',
+        'ended',
         'campaign_photo'
     ];
 

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('campanhas', function (Blueprint $table) {
+        Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('marca_id')->references('id')->on('users');
             $table->string('name')->unique();
@@ -26,11 +26,13 @@ return new class extends Migration
             $table->json('line_of_business');
             $table->json('category')->nullable();
             $table->json('social_media')->nullable();
-            $table->string('type');
-
+            $table->json('content_type')->nullable();
 
             $table->boolean('private')->default(0);
             $table->boolean('ended')->default(0);
+
+            $table->longText('campaign_photo')->nullable();
+
             $table->timestamps();
         });
     }
