@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Web\Campaign\CampaignController;
 use App\Http\Controllers\Api\Web\Campaign\CampaignParticipantsController;
 use App\Http\Controllers\Api\Web\Categories\CategoriesController;
 use App\Http\Controllers\Api\Web\Categories\LineOfBusinessController;
+use App\Http\Controllers\StatesController;
 use App\Models\CampaignParticipants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::post('/login' , [LoginController::class, 'login']);
 
 Route::get('/categories', [CategoriesController::class, 'getAllCategories']);
 Route::get('/lineOfBusiness', [LineOfBusinessController::class, 'getAllLines']);
+Route::get('/getStates' , [StatesController::class, 'getStates']);
 /*
 Rotas que cuidam do registro do usuario
 todas começam com o prefixo de /register
