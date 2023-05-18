@@ -23,13 +23,9 @@ class StoreCampaignRequest extends FormRequest
     {
         return [
             'name'              =>  ['required' , 'string', 'unique:campaigns'],
-            'budget'            =>  ['required' , 'string'], 
-            'brand_info'        =>  ['string'],
             'campaign_purpose'  =>  ['required' , 'string'],
-            'min_reach'         =>  ['string'],
             'states'            =>  ['string'],
             'line_of_business'  =>  ['required' , 'string'],
-            'category'          =>  ['string'],
             'social_media'      =>  ['required' , 'string'],
             'content_type'      =>  ['required' , 'string'],
             'type'              =>  ['required' , 'string'],
