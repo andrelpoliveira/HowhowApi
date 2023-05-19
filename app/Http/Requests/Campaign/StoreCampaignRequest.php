@@ -25,12 +25,11 @@ class StoreCampaignRequest extends FormRequest
             'name'              =>  ['required' , 'string', 'unique:campaigns'],
             'campaign_purpose'  =>  ['required' , 'string'],
             'states'            =>  ['string'],
-            'line_of_business'  =>  ['required' , 'string'],
-            'social_media'      =>  ['required' , 'string'],
-            'content_type'      =>  ['required' , 'string'],
-            'type'              =>  ['required' , 'string'],
-            'private'           =>  ['required' , 'string'],
-            'campaign_photo'    =>  ['required' , 'max:5120' , 'mimes:png,jpg,jpeg']
+            'social_media'      =>  ['required'],
+            'content_type'      =>  ['required'],
+            'type'              =>  ['nullable'],
+            'private'           =>  ['nullable'],
+            'campaign_photo'    =>  ['required' , 'max:5120']
         ];
     }
 }
