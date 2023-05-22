@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 //não tem login, aceita login de todos os tipos de usuarios
 Route::post('/login' , [LoginController::class, 'login']);
 
