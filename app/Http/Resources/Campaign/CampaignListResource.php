@@ -21,6 +21,8 @@ class CampaignListResource extends JsonResource
             'category'          => $this->category,
             'line_of_business'  => $this->line_of_business,
             'campaign_photo'    => $this->campaign_photo,
+            'private'           => $this->private,
+            'ended'             => $this->ended,
         ];
     }
 }
