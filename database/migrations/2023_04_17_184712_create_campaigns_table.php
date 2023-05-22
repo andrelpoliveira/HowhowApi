@@ -22,7 +22,6 @@ return new class extends Migration
 
             $table->json('states')->nullable();
             $table->json('line_of_business');
-            $table->json('category')->nullable();
             $table->json('social_media')->nullable();
             $table->json('content_type')->nullable();
 
