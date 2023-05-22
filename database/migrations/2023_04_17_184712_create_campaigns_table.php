@@ -17,14 +17,11 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('brand_name');
 
-            $table->string('budget');
             $table->longText('brand_info')->nullable();
             $table->longText('campaign_purpose')->nullable();
 
-            $table->string('min_reach')->nullable();
             $table->json('states')->nullable();
             $table->json('line_of_business');
-            $table->json('category')->nullable();
             $table->json('social_media')->nullable();
             $table->json('content_type')->nullable();
 

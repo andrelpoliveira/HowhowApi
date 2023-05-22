@@ -46,7 +46,7 @@ class CampaignController extends Controller
      */
     public function store(StoreCampaignRequest $request)
     {
-        $request->validated($request->all());
+        $request->validated();
 
         $user = auth()->user();
 
@@ -72,7 +72,6 @@ class CampaignController extends Controller
                 'private'           => $request->private,
                 'campaign_photo'    => $campaign_photo_path
             ];
-
             $campaign = Campaign::create($data);
 
             return $this->successfullyCreatedCampaign($campaign);

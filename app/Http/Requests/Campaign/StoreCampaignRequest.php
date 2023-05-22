@@ -29,7 +29,7 @@ class StoreCampaignRequest extends FormRequest
             'content_type'      =>  ['required'],
             'type'              =>  ['nullable'],
             'private'           =>  ['nullable'],
-            'campaign_photo'    =>  ['required' , 'max:5120']
+            'campaign_photo'    =>  ['max:5120']
         ];
     }
 }
