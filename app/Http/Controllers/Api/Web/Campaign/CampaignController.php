@@ -46,13 +46,12 @@ class CampaignController extends Controller
      */
     public function store(StoreCampaignRequest $request)
     {
-        $request->validated($request->all());
-
+        
+        $request->validated();
         $user = auth()->user();
 
         if($user->role == 'brand')
         {
-            
             $image = $request->campaign_photo;
             $uuidCampaignFolder = Uuid::uuid4()->toString();
             $uuid = Uuid::uuid4()->toString();

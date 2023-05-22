@@ -22,7 +22,7 @@ class RegisterController extends Controller
 
     public function registerInfluencer(StoreInfluencerRequest $request)
     {
-        $request->validated($request->all());
+        $request->validated();
 
         $data = [
             'name' => $request->name,

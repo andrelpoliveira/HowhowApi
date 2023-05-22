@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Campaign extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'marca_id',
         'name',
