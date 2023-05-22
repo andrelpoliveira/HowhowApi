@@ -278,10 +278,10 @@ class CampaignController extends Controller
 
     public function photoPatch(Request $request)
     {
-        $campaign = Campaign::where(['id' => 3])->first();
+        $campaign = Campaign::where(['id' => 9])->first();
         
         $photo_path_exploded = explode("/" , $campaign->campaign_photo);
-
+    
         $image = $request->file('image');
         $uuid = Uuid::uuid4()->toString();
         dd($image->storeAs('campaign_photo/'.$photo_path_exploded[0] , $uuid , 's3'));  
