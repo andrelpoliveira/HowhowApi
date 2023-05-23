@@ -61,6 +61,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     //finalização do cadastro do influencer
     Route::post('/influencer/wrapUp', [UserController::class , 'wrapUpRegisterInfluencer']);
 
+    Route::group(['prefix' => 'profile'],function(){
+        Route::get('/seeOwnProfile',    [UserController::class, 'getProfile']);
+    });
+
+
     //rotas de update para cada tipo de role
     Route::group(['prefix'=> 'userUpdate'], function()
     {

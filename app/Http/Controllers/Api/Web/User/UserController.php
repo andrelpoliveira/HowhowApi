@@ -9,6 +9,7 @@ use App\Http\Requests\User\UpdateBrandRequest;
 use App\Http\Requests\User\UpdateInfluencerRequest;
 use App\Http\Requests\User\WrapUpRegisterRequest;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\UpdateProfileResource;
 use App\Http\Resources\UserSelfResource;
 use App\Traits\HttpResponses;
 use App\Models\User;
@@ -287,8 +288,6 @@ class UserController extends Controller
 
     public function getProfile()
     {
-        $user = auth()->user();
-    
-        return
+        return UpdateProfileResource::collection(auth()->user());
     }
 }

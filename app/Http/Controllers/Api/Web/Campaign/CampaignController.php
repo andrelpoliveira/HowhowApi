@@ -45,15 +45,6 @@ class CampaignController extends Controller
     {
         $request->validated();
 
-        if($request->exists('campaign_photo')){
-            ['existe' => 'existe'];
-        }
-        else
-        {
-            ['existe' => 'não existe'];
-
-        }
-
         $user = auth()->user();
 
         if($user->role == 'brand')
@@ -65,16 +56,20 @@ class CampaignController extends Controller
             $path = 'campaign_photo/'.$uuidFolder;
             $campaign_photo_path = Storage::disk('s3')->putFileAs($path , $image , $uuidFileName);
 
-            // }
-            // else{
-            //     return var_dump('false');
-            // }
-            // $campaign_photo_path = $uuidCampaignFolder.'/'.$uuid;
-
-            return $this->success([
-                'campaign' => $campaign,
-                'algo' => $algo
-            ]);
+            $data = [
+                'marca_id'          => $user->id,
+                'name'              => $request->name,
+                'brand_name'        => $user->name_artistic,
+                'campaign_purpose'  => $request->campaign_purpose,
+                'states'            => json_encode($request->states),
+                'line_of_business'  => $user->line_of_business,
+                'social_media'      => json_encode($request->social_media),
+                'content_type'      => json_encode($request->content_type),
+                'type'              => $request->type,
+                'private'           => $request->private,
+                'campaign_photo'    => $campaign_photo_path
+            ];
+            $campaign = Campaign::create($data);
         }
         else
         {
