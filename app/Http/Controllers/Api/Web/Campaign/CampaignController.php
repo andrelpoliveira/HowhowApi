@@ -31,12 +31,9 @@ class CampaignController extends Controller
     {
         $user = auth()->user();
 
-        if($user->role == 'brand')
-        {
+        if ($user->role == 'brand') {
             return CampaignListResource::collection(Campaign::whereBelongsTo($user)->get());
-        }
-        else 
-        {
+        } else {
             return CampaignListResource::collection(Campaign::where(['private' => 0])->get());
         }
     }
@@ -47,39 +44,50 @@ class CampaignController extends Controller
     public function store(StoreCampaignRequest $request)
     {
         $request->validated();
-
+        //return response()->json($request->campaign_photo);
         $user = auth()->user();
 
-        if($user->role == 'brand')
-        {
-            $image = $request->campaign_photo;
-            $uuidCampaignFolder = Uuid::uuid4()->toString();
-            $uuid = Uuid::uuid4()->toString();
-            $image->storeAs('campaign_photo/'.$uuidCampaignFolder , $uuid , 's3');
-            $campaign_photo_path = $uuidCampaignFolder.'/'.$uuid;
+        if ($user->role == 'brand') {
+            try {
+                Storage::disk('s3')->put('test.txt', 'Testing S3 Connection');
+                return 'S3 Connection Successful!';
+            } catch (\Exception $e) {
+                return 'S3 Connection Failed: ' . $e->getMessage();
+            }
+            // $image = $request->file('campaign_photo');
+            // $uuidCampaignFolder = Uuid::uuid4()->toString();
+            // $uuid = Uuid::uuid4()->toString();
+            // $algo = $image->storeAs('campaign_photo/'.$uuidCampaignFolder , $uuid , 's3');
+            // return var_dump($image);
+            // if()
+            // {
+            //     return var_dump('true', $campaign_photo_path = $uuidCampaignFolder.'/'.$uuid);
 
-            $data = [
-                'marca_id'          => $user->id,
-                'name'              => $request->name,
-                'brand_name'        => $user->name_artistic,
-                'campaign_purpose'  => $request->campaign_purpose,
-                'states'            => json_encode($request->states),
-                'line_of_business'  => $user->line_of_business,
-                'social_media'      => json_encode($request->social_media),
-                'content_type'      => json_encode($request->content_type),
-                'type'              => $request->type,
-                'private'           => $request->private,
-                'campaign_photo'    => $campaign_photo_path
-            ];
-            $campaign = Campaign::create($data);
+            // }
+            // else{
+            //     return var_dump('false');
+            // }
+            // $campaign_photo_path = $uuidCampaignFolder.'/'.$uuid;
 
-            return $this->successfullyCreatedCampaign($campaign);
-        }
-        else
-        {
+            // $data = [
+            //     'marca_id'          => $user->id,
+            //     'name'              => $request->name,
+            //     'brand_name'        => $user->name_artistic,
+            //     'campaign_purpose'  => $request->campaign_purpose,
+            //     'states'            => json_encode($request->states),
+            //     'line_of_business'  => $user->line_of_business,
+            //     'social_media'      => json_encode($request->social_media),
+            //     'content_type'      => json_encode($request->content_type),
+            //     //'type'              => $request->type,
+            //     //'private'           => $request->private,
+            //     'campaign_photo'    => $campaign_photo_path
+            // ];
+            // $campaign = Campaign::create($data);
+
+            // return $this->successfullyCreatedCampaign($campaign);
+        } else {
             return $this->itsNotBrand();
         }
-
     }
 
     /**
@@ -90,30 +98,22 @@ class CampaignController extends Controller
         $user = auth()->user();
         $request->validated($request->all());
 
-        if($user->role == 'brand')
-        {
+        if ($user->role == 'brand') {
             $campaign = Campaign::where(['name' => $request->name])->first();
 
-            if($campaign->marca_id == $user->id)
-            {
+            if ($campaign->marca_id == $user->id) {
                 $participants = CampaignParticipants::where(['campaign_id' => $campaign->id])->get();
 
                 return $this->success([
                     'campaign'      => $campaign,
                     'participants'  => $participants
                 ]);
-
-            }
-            else
-            {
+            } else {
                 return $this->brandDosentOwnCampaign();
             }
-        }
-        else 
-        {
+        } else {
             return CampaignListResource::collection(Campaign::where(['name' => $request->name])->first());
         }
-
     }
 
     /**
@@ -124,94 +124,75 @@ class CampaignController extends Controller
 
         $user = auth()->user();
 
-        if($user->role == 'brand')
-        {
+        if ($user->role == 'brand') {
             $request->validated($request->all());
 
-            if (Hash::check(request('password'), auth()->user()->password))
-            {
+            if (Hash::check(request('password'), auth()->user()->password)) {
 
                 $campaign = Campaign::where(['id' => $request->id]);
-                
-                    if($request->exists('name'))
-                    {
-                        $campaign->name = $request->name;
-                    }
-                    
-                    if($request->exists('budget'))
-                    {
-                        $campaign->budget = $request->budget;
-                    }
 
-                    if($request->exists('brand_info'))
-                    {
-                        $campaign->brand_info = $request->brand_info;
-                    }
+                if ($request->exists('name')) {
+                    $campaign->name = $request->name;
+                }
 
-                    if($request->exists('campaign_purpose'))
-                    {
-                        $campaign->campaign_purpose = $request->campaign_purpose;
-                    }
+                if ($request->exists('budget')) {
+                    $campaign->budget = $request->budget;
+                }
 
-                    if($request->exists('min_reach'))
-                    {
-                        $campaign->min_reach = $request->min_reach;
-                    }
+                if ($request->exists('brand_info')) {
+                    $campaign->brand_info = $request->brand_info;
+                }
 
-                    if($request->exists('states'))
-                    {
-                        $campaign->states = json_encode($request->states);
-                    }
+                if ($request->exists('campaign_purpose')) {
+                    $campaign->campaign_purpose = $request->campaign_purpose;
+                }
 
-                    if($request->exists('line_of_business'))
-                    {
-                        $campaign->line_of_business = json_encode($request->line_of_business);
-                    }
+                if ($request->exists('min_reach')) {
+                    $campaign->min_reach = $request->min_reach;
+                }
 
-                    if($request->exists('category'))
-                    {
-                        $campaign->category = json_encode($request->category);
-                    }
+                if ($request->exists('states')) {
+                    $campaign->states = json_encode($request->states);
+                }
 
-                    if($request->exists('social_media'))
-                    {
-                        $campaign->social_media = json_encode($request->social_media);
-                    }
+                if ($request->exists('line_of_business')) {
+                    $campaign->line_of_business = json_encode($request->line_of_business);
+                }
 
-                    if($request->exists('type'))
-                    {
-                        $campaign->type = $request->type;
-                    }
+                if ($request->exists('category')) {
+                    $campaign->category = json_encode($request->category);
+                }
 
-                    if($request->exists('private'))
-                    {
-                        $campaign->private = $request->private;
-                    }
-                    if($request->exists('campaign_photo'))
-                    {
-                        $photo_path_exploded = explode("/" , $campaign->campaign_photo);
+                if ($request->exists('social_media')) {
+                    $campaign->social_media = json_encode($request->social_media);
+                }
 
-                        $image = $request->file('image');
+                if ($request->exists('type')) {
+                    $campaign->type = $request->type;
+                }
 
-                        $uuid = Uuid::uuid4()->toString();
+                if ($request->exists('private')) {
+                    $campaign->private = $request->private;
+                }
+                if ($request->exists('campaign_photo')) {
+                    $photo_path_exploded = explode("/", $campaign->campaign_photo);
 
-                        $image->storeAs('campaign_photo/'.$photo_path_exploded[0] , $uuid , 's3');  
+                    $image = $request->file('image');
 
-                        $campaign->campaign_photo = $photo_path_exploded.$uuid;
-                    }
+                    $uuid = Uuid::uuid4()->toString();
 
-                    $campaign->save();
+                    $image->storeAs('campaign_photo/' . $photo_path_exploded[0], $uuid, 's3');
 
-                    return $this->successfullyUpdatedCampaign($campaign);
-                
-            }
-            else
-            {
+                    $campaign->campaign_photo = $photo_path_exploded . $uuid;
+                }
+
+                $campaign->save();
+
+                return $this->successfullyUpdatedCampaign($campaign);
+            } else {
                 return $this->wrongPassWord();
             }
-        }
-        else
-        {
+        } else {
             return $this->itsNotBrand();
         }
     }
@@ -225,30 +206,23 @@ class CampaignController extends Controller
 
         $user = auth()->user();
 
-        if (Hash::check(request('password'), auth()->user()->password))
-        {
-        
-            if ($user->role == 'brand')
-            {
+        if (Hash::check(request('password'), auth()->user()->password)) {
 
-                $campaign = Campaign::where([ 'id' => $request->id ])->first();
+            if ($user->role == 'brand') {
 
-                if($user->id == $campaign->marca_id)
-                {
+                $campaign = Campaign::where(['id' => $request->id])->first();
+
+                if ($user->id == $campaign->marca_id) {
                     $campaign->ended = 1;
                     $campaign->private = 1;
                     $campaign->save();
 
                     return $this->campaignClosed();
                 }
-            }
-            else
-            {
+            } else {
                 return $this->itsNotBrand();
             }
-        }
-        else
-        {
+        } else {
             return $this->wrongPassWord();
         }
     }
@@ -264,28 +238,24 @@ class CampaignController extends Controller
 
         $uuid = Uuid::uuid4()->toString();
 
-        $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');        
-       
+        $image->storeAs('profile_photo/' . $user->id, $uuid, 's3');
     }
 
     public function photoDownload()
     {
         $user = auth()->user();
 
-        dd(Storage::disk('s3')->temporaryUrl('profile_photo/'.$user->id.'/ad92d9c9-3c01-4c05-84d7-dc03f0c47272', now()->addMinutes(5)));
-        
+        dd(Storage::disk('s3')->temporaryUrl('profile_photo/' . $user->id . '/ad92d9c9-3c01-4c05-84d7-dc03f0c47272', now()->addMinutes(5)));
     }
 
     public function photoPatch(Request $request)
     {
         $campaign = Campaign::where(['id' => 9])->first();
-        
-        $photo_path_exploded = explode("/" , $campaign->campaign_photo);
-    
+
+        $photo_path_exploded = explode("/", $campaign->campaign_photo);
+
         $image = $request->file('image');
         $uuid = Uuid::uuid4()->toString();
-        dd($image->storeAs('campaign_photo/'.$photo_path_exploded[0] , $uuid , 's3'));  
-        
+        dd($image->storeAs('campaign_photo/' . $photo_path_exploded[0], $uuid, 's3'));
     }
-
-}   
+}
