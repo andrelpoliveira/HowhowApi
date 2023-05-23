@@ -44,24 +44,26 @@ class CampaignController extends Controller
     public function store(StoreCampaignRequest $request)
     {
         $request->validated();
-        //return response()->json($request->campaign_photo);
+
+        if($request->exists('campaign_photo')){
+            ['existe' => 'existe'];
+        }
+        else
+        {
+            ['existe' => 'não existe'];
+
+        }
+
         $user = auth()->user();
 
-        if ($user->role == 'brand') {
-            try {
-                Storage::disk('s3')->put('test.txt', 'Testing S3 Connection');
-                return 'S3 Connection Successful!';
-            } catch (\Exception $e) {
-                return 'S3 Connection Failed: ' . $e->getMessage();
-            }
-            // $image = $request->file('campaign_photo');
-            // $uuidCampaignFolder = Uuid::uuid4()->toString();
-            // $uuid = Uuid::uuid4()->toString();
-            // $algo = $image->storeAs('campaign_photo/'.$uuidCampaignFolder , $uuid , 's3');
-            // return var_dump($image);
-            // if()
-            // {
-            //     return var_dump('true', $campaign_photo_path = $uuidCampaignFolder.'/'.$uuid);
+        if($user->role == 'brand')
+        {
+            $image = $request->campaign_photo;
+            return var_dump($image);
+            $uuidFolder = Uuid::uuid4()->toString();
+            $uuidFileName = Uuid::uuid4()->toString();
+            $path = 'campaign_photo/'.$uuidFolder;
+            $campaign_photo_path = Storage::disk('s3')->putFileAs($path , $image , $uuidFileName);
 
             // }
             // else{
@@ -69,23 +71,13 @@ class CampaignController extends Controller
             // }
             // $campaign_photo_path = $uuidCampaignFolder.'/'.$uuid;
 
-            // $data = [
-            //     'marca_id'          => $user->id,
-            //     'name'              => $request->name,
-            //     'brand_name'        => $user->name_artistic,
-            //     'campaign_purpose'  => $request->campaign_purpose,
-            //     'states'            => json_encode($request->states),
-            //     'line_of_business'  => $user->line_of_business,
-            //     'social_media'      => json_encode($request->social_media),
-            //     'content_type'      => json_encode($request->content_type),
-            //     //'type'              => $request->type,
-            //     //'private'           => $request->private,
-            //     'campaign_photo'    => $campaign_photo_path
-            // ];
-            // $campaign = Campaign::create($data);
-
-            // return $this->successfullyCreatedCampaign($campaign);
-        } else {
+            return $this->success([
+                'campaign' => $campaign,
+                'algo' => $algo
+            ]);
+        }
+        else
+        {
             return $this->itsNotBrand();
         }
     }
@@ -232,13 +224,14 @@ class CampaignController extends Controller
 
     public function photoUpload(Request $request)
     {
-        $user = auth()->user();
+        $campaign = Campaign::where(['id' => 6])->first();
 
-        $image = $request->file('imagem');
-
-        $uuid = Uuid::uuid4()->toString();
-
-        $image->storeAs('profile_photo/' . $user->id, $uuid, 's3');
+        $file = $request->file('campaign_photo');
+        $uuidFolder = Uuid::uuid4()->toString();
+        $uuidFileName = Uuid::uuid4()->toString();
+        $path = 'campaign_photo/'.$uuidFolder;
+        $path = Storage::disk('s3')->putFileAs($path , $file , $uuidFileName);
+        dd($path);
     }
 
     public function photoDownload()
