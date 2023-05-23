@@ -48,15 +48,25 @@ class CampaignController extends Controller
     {
         $request->validated();
 
+        if($request->exists('campaign_photo')){
+            ['existe' => 'existe'];
+        }
+        else
+        {
+            ['existe' => 'não existe'];
+
+        }
+
         $user = auth()->user();
 
         if($user->role == 'brand')
         {
             $image = $request->campaign_photo;
-            $uuidCampaignFolder = Uuid::uuid4()->toString();
-            $uuid = Uuid::uuid4()->toString();
-            $image->storeAs('campaign_photo/'.$uuidCampaignFolder , $uuid , 's3');
-            $campaign_photo_path = $uuidCampaignFolder.'/'.$uuid;
+            return var_dump($image);
+            $uuidFolder = Uuid::uuid4()->toString();
+            $uuidFileName = Uuid::uuid4()->toString();
+            $path = 'campaign_photo/'.$uuidFolder;
+            $campaign_photo_path = Storage::disk('s3')->putFileAs($path , $image , $uuidFileName);
 
             $data = [
                 'marca_id'          => $user->id,
@@ -73,7 +83,10 @@ class CampaignController extends Controller
             ];
             $campaign = Campaign::create($data);
 
-            return $this->successfullyCreatedCampaign($campaign);
+            return $this->success([
+                'campaign' => $campaign,
+                'algo' => $algo
+            ]);
         }
         else
         {
@@ -258,14 +271,14 @@ class CampaignController extends Controller
 
     public function photoUpload(Request $request)
     {
-        $user = auth()->user();
+        $campaign = Campaign::where(['id' => 6])->first();
 
-        $image = $request->file('imagem');
-
-        $uuid = Uuid::uuid4()->toString();
-
-        $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');        
-       
+        $file = $request->file('campaign_photo');
+        $uuidFolder = Uuid::uuid4()->toString();
+        $uuidFileName = Uuid::uuid4()->toString();
+        $path = 'campaign_photo/'.$uuidFolder;
+        $path = Storage::disk('s3')->putFileAs($path , $file , $uuidFileName);
+        dd($path);
     }
 
     public function photoDownload()

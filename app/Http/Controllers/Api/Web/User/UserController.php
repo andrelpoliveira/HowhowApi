@@ -284,4 +284,11 @@ class UserController extends Controller
         }
 
     }
+
+    public function getProfile()
+    {
+        $user = auth()->user();
+    
+        return
+    }
 }

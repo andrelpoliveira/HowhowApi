@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserSelfResource extends JsonResource
+class UpdateProfileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,16 +18,20 @@ class UserSelfResource extends JsonResource
             'name'                              =>  $this->name,
             'name_artistic'                     =>  $this->name_artistic,
             'business_name'                     =>  $this->business_name,
-            'username'                          =>  $this->username,
             'line_of_business'                  =>  $this->line_of_business,
             'email'                             =>  $this->email,
-            'role'                              =>  $this->role,
             'category'                          =>  $this->category,
+            'gender'                            =>  $this->gender,
+            'cpf'                               =>  $this->cpf,
+            'cnpj'                              =>  $this->cnpj,
+            'adress'                            =>  $this->adress,
+            'birthday'                          =>  $this->birthday,
+            'landline'                          =>  $this->landline,
+            'phone'                             =>  $this->phone,
             'theme'                             =>  $this->theme,
             'language'                          =>  $this->language,
             'status'                            =>  $this->status,
-            'gender'                            =>  $this->gender,
-            'profile_photo_url'                 =>  $this->profile_photo_url,
+            'profile_photo_path'                 =>  $this->profile_photo_url,
         ];
     }
 }
