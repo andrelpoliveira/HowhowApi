@@ -48,15 +48,6 @@ class CampaignController extends Controller
     {
         $request->validated();
 
-        if($request->exists('campaign_photo')){
-            ['existe' => 'existe'];
-        }
-        else
-        {
-            ['existe' => 'não existe'];
-
-        }
-
         $user = auth()->user();
 
         if($user->role == 'brand')
@@ -82,11 +73,6 @@ class CampaignController extends Controller
                 'campaign_photo'    => $campaign_photo_path
             ];
             $campaign = Campaign::create($data);
-
-            return $this->success([
-                'campaign' => $campaign,
-                'algo' => $algo
-            ]);
         }
         else
         {
