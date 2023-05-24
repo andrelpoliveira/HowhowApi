@@ -53,7 +53,6 @@ class CampaignController extends Controller
         if($user->role == 'brand')
         {
             $image = $request->campaign_photo;
-            return var_dump($image);
             $uuidFolder = Uuid::uuid4()->toString();
             $uuidFileName = Uuid::uuid4()->toString();
             $path = 'campaign_photo/'.$uuidFolder;
@@ -68,11 +67,12 @@ class CampaignController extends Controller
                 'line_of_business'  => $user->line_of_business,
                 'social_media'      => json_encode($request->social_media),
                 'content_type'      => json_encode($request->content_type),
-                'type'              => $request->type,
-                'private'           => $request->private,
+                'private'           => 0,
                 'campaign_photo'    => $campaign_photo_path
             ];
             $campaign = Campaign::create($data);
+
+            return $this->successfullyCreatedCampaign($campaign);
         }
         else
         {
