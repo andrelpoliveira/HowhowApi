@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/influencer/wrapUp', [UserController::class , 'wrapUpRegisterInfluencer']);
 
     Route::group(['prefix' => 'profile'],function(){
-        Route::get('/seeOwnProfile',    [UserController::class, 'getProfile']);
+        Route::get('/seeOwnProfile', [UserController::class, 'getProfile']);
     });
 
 

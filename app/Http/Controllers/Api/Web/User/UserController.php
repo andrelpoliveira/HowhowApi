@@ -288,6 +288,6 @@ class UserController extends Controller
 
     public function getProfile()
     {
-        return UpdateProfileResource::collection(auth()->user());
+        return new UpdateProfileResource(auth()->user());
     }
 }
