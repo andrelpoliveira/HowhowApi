@@ -39,6 +39,10 @@ class UserController extends Controller
             {
                 $user->landline = $request->landline;
             }
+            if($request->exists('about_me'))
+            {
+                $user->about_me = $request->about_me;
+            }
             
             $image = $request->profile_photo;
             $uuid = Uuid::uuid4()->toString();
@@ -128,6 +132,11 @@ class UserController extends Controller
                 $user->password = $request->password;
             }
 
+            if($request->exists('about_me'))
+            {
+                $user->about_me = $request->about_me;
+            }
+
             $user->save();
 
             return $this->success([
@@ -201,6 +210,10 @@ class UserController extends Controller
                 $uuid = Uuid::uuid4()->toString();
                 $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
                 $user->profile_photo_path = $uuid;
+            }
+            if($request->exists('about_me'))
+            {
+                $user->about_me = $request->about_me;
             }     
             
             $user->save();
@@ -271,6 +284,10 @@ class UserController extends Controller
                 $uuid = Uuid::uuid4()->toString();
                 $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
                 $user->profile_photo_path = $uuid;  
+            }
+            if($request->exists('about_me'))
+            {
+                $user->about_me = $request->about_me;
             }
 
             $user->save();

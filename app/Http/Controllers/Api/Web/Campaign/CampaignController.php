@@ -245,6 +245,5 @@ class CampaignController extends Controller
 
         $image = $request->file('image');
         $uuid = Uuid::uuid4()->toString();
-        dd($image->storeAs('campaign_photo/' . $photo_path_exploded[0], $uuid, 's3'));
     }
 }
