@@ -71,6 +71,14 @@ class UserController extends Controller
                 $user->email = $request->email;
             }
 
+            if($request->exists('phone2'))
+            {
+                $user->phone2 = $request->phone2;
+            }
+            if($request->exists('email2'))
+            {
+                $user->phone2 = $request->email2;
+            }
             if($request->exists('name_artistic'))
             {
                 $user->name_artistic = $request->name_artistic;
@@ -159,6 +167,14 @@ class UserController extends Controller
             {
                 $user->password = $request->password;
             }
+            if($request->exists('phone2'))
+            {
+                $user->phone2 = $request->phone2;
+            }
+            if($request->exists('email2'))
+            {
+                $user->phone2 = $request->email2;
+            }
             if($request->exists('landline'))
             {
                 $user->password = $request->password;
@@ -224,6 +240,14 @@ class UserController extends Controller
             if($request->exists('phone'))
             {
                 $user->password = $request->password;
+            }
+            if($request->exists('phone2'))
+            {
+                $user->phone2 = $request->phone2;
+            }
+            if($request->exists('email2'))
+            {
+                $user->phone2 = $request->email2;
             }
             if($request->exists('cnpj'))
             {
