@@ -62,6 +62,7 @@ class CampaignController extends Controller
                 'marca_id'          => $user->id,
                 'name'              => $request->name,
                 'brand_name'        => $user->name_artistic,
+                'brand_info'        => $user->about_me,
                 'campaign_purpose'  => $request->campaign_purpose,
                 'states'            => json_encode($request->states),
                 'line_of_business'  => $user->line_of_business,
