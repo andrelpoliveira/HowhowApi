@@ -20,6 +20,7 @@ class UpdateProfileResource extends JsonResource
             'business_name'                     =>  $this->business_name,
             'line_of_business'                  =>  $this->line_of_business,
             'email'                             =>  $this->email,
+            'email2'                            =>  $this->email2,
             'category'                          =>  $this->category,
             'gender'                            =>  $this->gender,
             'cpf'                               =>  $this->cpf,
@@ -28,10 +29,12 @@ class UpdateProfileResource extends JsonResource
             'birthday'                          =>  $this->birthday,
             'landline'                          =>  $this->landline,
             'phone'                             =>  $this->phone,
+            'phone2'                            =>  $this->phone2,
+            'about_me'                          =>  $this->about_me,
             'theme'                             =>  $this->theme,
             'language'                          =>  $this->language,
             'status'                            =>  $this->status,
-            'profile_photo_path'                 =>  $this->profile_photo_url,
+            'profile_photo_path'                =>  $this->profile_photo_url,
         ];
     }
 }
