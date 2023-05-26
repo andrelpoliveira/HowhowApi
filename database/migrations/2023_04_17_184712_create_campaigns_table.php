@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longText('brand_info')->nullable();
             $table->longText('campaign_purpose')->nullable();
 
+            $table->json('country')->nullable();
             $table->json('states')->nullable();
             $table->json('line_of_business');
             $table->json('social_media')->nullable();

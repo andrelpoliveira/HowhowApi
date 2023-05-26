@@ -22,7 +22,7 @@ class CampaignInvitationController extends Controller
     {
         $user = auth()->user();
 
-        $request->validated($request->all());
+        $request->validated();
 
         if($user->role == 'brand')
         {
@@ -35,9 +35,7 @@ class CampaignInvitationController extends Controller
                 $campaign = Campaign::where(['id' => $invitation->campaign_id])->first();
                 if($campaign->marca_id == $user->id)
                 {
-                    $invitation->delete();
-
-                    
+                    $invitation->delete();                    
                 }
             }
         }
