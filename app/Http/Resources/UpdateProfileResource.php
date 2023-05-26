@@ -35,6 +35,7 @@ class UpdateProfileResource extends JsonResource
             'language'                          =>  $this->language,
             'status'                            =>  $this->status,
             'profile_photo_path'                =>  $this->profile_photo_url,
+            'background_photo_path'             =>  $this->background_photo_path
         ];
     }
 }

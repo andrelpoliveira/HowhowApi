@@ -15,7 +15,7 @@ class GetStatesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'states' => $this->states,
+            'state' => $this->state,
         ];
     }
 }
