@@ -13,6 +13,7 @@ use App\Http\Resources\UpdateProfileResource;
 use App\Http\Resources\UserSelfResource;
 use App\Traits\HttpResponses;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
@@ -23,7 +24,7 @@ class UserController extends Controller
     //Responsavel pela finalização do registro do influenciador
     public function wrapUpRegisterInfluencer(WrapUpRegisterRequest $request)
     {
-        $request->validated($request->all());
+        $request->validated();
 
         $user = auth()->user();
 
@@ -44,10 +45,28 @@ class UserController extends Controller
                 $user->about_me = $request->about_me;
             }
             
+            if($request->exists('background_photo'))
+            {
+                $image = $request->background_photo;
+                $uuid = Uuid::uuid4()->toString();
+                $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
+                $user->background_photo_path = $uuid;
+            }
+            if($request->exists('phone2'))
+            {
+                $user->phone2 = $request->phone2;
+            }
+            if($request->exists('email2'))
+            {
+                $user->email2 = $request->email2;
+            }
+
             $image = $request->profile_photo;
             $uuid = Uuid::uuid4()->toString();
             $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
             $user->profile_photo_path = $uuid;
+
+            
 
             $user->save();
 
@@ -65,7 +84,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        $request->validated($request->all());
+        $request->validated();
 
         if($user->role == 'influencer')
         {
@@ -73,11 +92,6 @@ class UserController extends Controller
             if($request->exists('email'))
             {
                 $user->email = $request->email;
-            }
-
-            if($request->exists('phone2'))
-            {
-                $user->phone2 = $request->phone2;
             }
             if($request->exists('email2'))
             {
@@ -113,25 +127,37 @@ class UserController extends Controller
                 $user->phone = $request->phone;
             }
 
+            if($request->exists('phone2'))
+            {
+                $user->phone2 = $request->phone2;
+            }
             if($request->exists('landline'))
             {
                 $user->landline = $request->landline;
             }
-
+            
             if($request->exists('profile_photo'))
             {
                 $image = $request->profile_photo;
                 $uuid = Uuid::uuid4()->toString();
                 $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
                 $user->profile_photo_path = $uuid;
-
             }
-
+            if($request->exists('background_photo'))
+            {
+                $image = $request->background_photo;
+                $uuid = Uuid::uuid4()->toString();
+                $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
+                $user->background_photo_path = $uuid;
+            }
             if($request->exists('password'))
             {
-                $user->password = $request->password;
+                $user->password = Hash::make($request->password);
             }
-
+            if($request->exists('country'))
+            {
+                $user->country = $request->country;
+            }
             if($request->exists('about_me'))
             {
                 $user->about_me = $request->about_me;
@@ -158,7 +184,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        $request->validated($request->all());
+        $request->validated();
 
 
         if($user->role == 'brand')
@@ -166,43 +192,51 @@ class UserController extends Controller
 
             if($request->exists('name_artistic'))
             {
-                $user->password = $request->password;
+                $user->name_artistic = $request->name_artistic;
             }
             if($request->exists('business_name'))
             {
-                $user->password = $request->password;
+                $user->business_name = $request->business_name;
             }
             if($request->exists('phone'))
             {
-                $user->password = $request->password;
+                $user->phone = $request->phone;
             }
             if($request->exists('phone2'))
             {
                 $user->phone2 = $request->phone2;
             }
+            if($request->exists('landline'))
+            {
+                $user->landline = $request->landline;
+            }
+            if($request->exists('cnpj'))
+            {
+                $user->cnpj = $request->cnpj;
+            }
+            if($request->exists('line_of_business'))
+            {
+                $user->line_of_business = $request->line_of_business;
+            }
+            if($request->exists('email'))
+            {
+                $user->email = $request->email;
+            }
             if($request->exists('email2'))
             {
                 $user->phone2 = $request->email2;
             }
-            if($request->exists('landline'))
+            if($request->exists('language'))
             {
-                $user->password = $request->password;
+                $user->language = $request->language;
             }
-            if($request->exists('cnpj'))
+            if($request->exists('country'))
             {
-                $user->password = $request->password;
-            }
-            if($request->exists('line_of_business'))
-            {
-                $user->password = $request->password;
-            }
-            if($request->exists('email'))
-            {
-                $user->password = $request->password;
+                $user->country = $request->country;
             }
             if($request->exists('password'))
             {
-                $user->password = $request->password;
+                $user->password = Hash::make($request->password);
             }
             if($request->exists('profile_photo'))
             {
@@ -214,6 +248,13 @@ class UserController extends Controller
             if($request->exists('about_me'))
             {
                 $user->about_me = $request->about_me;
+            }
+            if($request->exists('background_photo'))
+            {
+                $image = $request->background_photo;
+                $uuid = Uuid::uuid4()->toString();
+                $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
+                $user->background_photo_path = $uuid;
             }     
             
             $user->save();
@@ -238,45 +279,54 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        $request->validated($request->all());
+        $request->validated();
 
         if($user->role == 'agency')
         {
+            
             if($request->exists('name_artistic'))
             {
-                $user->password = $request->password;
+                $user->name_artistic = $request->paname_artisticssword;
             }
             if($request->exists('business_name'))
             {
-                $user->password = $request->password;
+                $user->business_name = $request->business_name;
             }
             if($request->exists('phone'))
             {
-                $user->password = $request->password;
+                $user->phone = $request->phone;
             }
             if($request->exists('phone2'))
             {
                 $user->phone2 = $request->phone2;
             }
-            if($request->exists('email2'))
-            {
-                $user->phone2 = $request->email2;
-            }
             if($request->exists('cnpj'))
             {
-                $user->password = $request->password;
+                $user->cnpj = $request->cnpj;
             }
             if($request->exists('email'))
             {
-                $user->password = $request->password;
+                $user->email = $request->email;
+            }
+            if($request->exists('email2'))
+            {
+                $user->email2 = $request->email2;
+            }
+            if($request->exists('language'))
+            {
+                $user->language = $request->language;
+            }
+            if($request->exists('country'))
+            {
+                $user->country = $request->country;
             }
             if($request->exists('password'))
             {
-                $user->password = $request->password;
+                $user->password = Hash::make($request->password);
             }
             if($request->exists('landline'))
             {
-                $user->password = $request->password;
+                $user->landline = $request->landline;
             }
             if($request->exists('profile_photo'))
             {
@@ -288,6 +338,13 @@ class UserController extends Controller
             if($request->exists('about_me'))
             {
                 $user->about_me = $request->about_me;
+            }
+            if($request->exists('background_photo'))
+            {
+                $image = $request->background_photo;
+                $uuid = Uuid::uuid4()->toString();
+                $image->storeAs('profile_photo/'.$user->id , $uuid , 's3');
+                $user->background_photo_path = $uuid;
             }
 
             $user->save();

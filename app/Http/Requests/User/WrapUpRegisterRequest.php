@@ -22,14 +22,17 @@ class WrapUpRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_artistic'     => ['required' , 'string' , 'unique:users'],
-            'language'          => ['nullable' , 'string'],
-            'category'          => ['required' ],
-            'cpf'               => ['required' , 'string' , 'unique:users'],
-            'birthday'          => ['required' , 'string'],
-            'phone'             => ['required' , 'string' , 'unique:users'],
-            'landline'          => ['string'   , 'unique:users'],
-            'profile_photo'     => ['required' , 'max:5120' , 'mimes:png,jpg,jpeg'],
+            'name_artistic'                 => ['required'  ,   'string'    ,   'unique:users'],
+            'language'                      => ['nullable'  ,   'string'],
+            'category'                      => ['required' ],
+            'cpf'                           => ['required'  ,   'string'    ,   'unique:users'],
+            'birthday'                      => ['required'  ,   'string'],
+            'phone'                         => ['required'  ,   'string'    ,   'unique:users'],
+            'phone2'                        => ['nullable'  ,   'string'    ,   'unique:users'],
+            'landline'                      => ['nullable'  ,   'string'    ,   'unique:users'],
+            'profile_photo'                 => ['required'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
+            'background_photo'              => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
+            'email2'                        => ['nullable'  ,   'unique:users']
         ];
     }
 }

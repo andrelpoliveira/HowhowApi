@@ -23,17 +23,21 @@ class UpdateInfluencerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'             => ['email'  , 'unique:users'],
-            'name_artistic'     => ['string' , 'unique:users'],
-            'username'          => ['string' , 'unique:users'],
-            'language'          => ['string'],
-            'category'          => ['string'],
-            'cpf'               => ['nullable' , 'string'],
-            'birthday'          => ['nullable' , 'string'],
-            'phone'             => ['string'   , 'unique:users'],
-            'landline'          => ['string'   , 'unique:users'],
-            'profile_photo'     => ['nullable'],
-            'password'          => ['confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
+            'email'                         => ['email'     ,   'unique:users'],
+            'name_artistic'                 => ['string'    ,   'unique:users'],
+            'username'                      => ['string'    ,   'unique:users'],
+            'language'                      => ['string'],  
+            'category'                      => ['string'],  
+            'adress'                        => ['string'], 
+            'cpf'                           => ['nullable'  ,   'string'],
+            'birthday'                      => ['nullable'  ,   'string'],
+            'phone'                         => ['string'    ,   'unique:users'  ,   'nullable'],
+            'phone2'                        => ['string'    ,   'unique:users'  ,   'nullable'],
+            'landline'                      => ['string'    ,   'unique:users'],
+            'country'                       => ['nullable'],
+            'background_photo'              => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
+            'background_photo'              => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
+            'password'                      => ['confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
         ];
     }
 }

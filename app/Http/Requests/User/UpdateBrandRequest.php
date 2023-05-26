@@ -23,15 +23,21 @@ class UpdateBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_artistic'     => ['string' , 'max:255'], 
-            'business_name'     => ['string' , 'max:255'], 
-            'phone'             => ['string' , 'max:255' , 'unique:users'], 
-            'landline'          => ['string' , 'unique:users'],
-            'cnpj'              => ['string' , 'max:18'  , 'unique:users' , 'min:18'], 
-            'line_of_business'  => ['string' , 'max:255'], 
-            'email'             => ['string' , 'max:255' , 'unique:users'], 
-            'password'          => ['string' , 'max:255' , 'confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
-            'profile_photo'     => ['nullable'],
+            'name_artistic'     => ['nullable'  ,   'string'    ,  'unique:users' ,'max:255'], 
+            'business_name'     => ['nullable'  ,   'string'    ,  'unique:users' ,'max:255'],
+            'about_me'          => ['string', 'nullable'],  
+            'phone'             => ['nullable'  ,   'string'    ,   'max:255' , 'unique:users'],
+            'phone2'            => ['nullable'  ,   'string'    ,   'max:255' , 'unique:users'], 
+            'landline'          => ['nullable'  ,   'string'    ,   'unique:users'],
+            'cnpj'              => ['nullable'  ,   'string'    ,   'max:18'  , 'unique:users' , 'min:18'], 
+            'line_of_business'  => ['nullable'  ,   'string'    ,   'max:255'], 
+            'email'             => ['nullable'  ,   'string'    ,   'unique:users'],
+            'phone2'            => ['nullable'  ,   'string'    ,   'max:255' , 'unique:users'],
+            'country'           => ['nullable'],
+            'language'          => ['string'],  
+            'password'          => ['nullable'  ,   'string'    ,   'max:255' , 'confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
+            'profile_photo'     => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
+            'background_photo'  => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
         ];
     }
 }
