@@ -49,11 +49,36 @@ class CampaignController extends Controller
         //return dd($request->all());
         if($user->role == 'brand')
         {
+            //olhar posteriormente como só enviar a foto para a S3 após o registro da campanha ser feito com sucesso
             $image = $request->campaign_photo;
             $uuidFolder = Uuid::uuid4()->toString();
             $uuidFileName = Uuid::uuid4()->toString();
             $path = 'campaign_photo/'.$uuidFolder;
             $campaign_photo_path = Storage::disk('s3')->putFileAs($path , $image , $uuidFileName);
+
+            //trata o Json vindo da requisição/Request
+            $searchFor = array("{", "}", '""', '"');
+            $stringHandled = str_replace($searchFor, "" , $request->content_type);
+            $stringHandled2 = explode(',' ,$stringHandled);
+
+            //precisa
+            $socialMedia = [];
+            // X ira ser divido em string e valor que ira para um array nomeado, a string sera o nome da casa e o valor sera atribuido
+            foreach($stringHandled2 as $x)
+            {
+                $stringExploded = explode(':' ,$x);
+                if($stringExploded[1] == "" || $stringExploded[1] == "false" || $stringExploded[1] == "0"){
+                    continue;
+                }
+                else
+                {
+                    $associativeArray = [
+                        $stringExploded[0] => $stringExploded[1]
+                    ];
+                    $socialMedia = $socialMedia + $associativeArray;
+                }
+            }
+            
 
             $data = [
                 'marca_id'          => $user->id,
@@ -64,7 +89,7 @@ class CampaignController extends Controller
                 'states'            => json_encode($request->states, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
                 'line_of_business'  => $user->line_of_business,
                 'social_media'      => json_encode($request->social_media, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
-                'content_type'      => json_encode($request->content_type, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
+                'content_type'      => json_encode($socialMedia),
                 'private'           => $request->private,
                 'campaign_photo'    => $campaign_photo_path
             ];
@@ -237,5 +262,33 @@ class CampaignController extends Controller
 
         $image = $request->file('image');
         $uuid = Uuid::uuid4()->toString();
+    }
+
+    public function tratamentojson()
+    {
+        $campanha = Campaign::where(['id' => '9'])->first();
+
+        $searchFor = array("{", "}", '""', '"');
+        $stringHandled = str_replace($searchFor, "" , $campanha->content_type);
+        $stringHandled2 = explode(',' ,$stringHandled);
+
+        //precisa
+        $socialMedia = [];
+        // X ira ser divido em string e valor que ira para um array nomeado, a string sera o nome da casa e o valor sera atribuido
+        foreach($stringHandled2 as $x)
+        {
+            $stringExploded = explode(':' ,$x);
+            if($stringExploded[1] == "" || $stringExploded[1] == "false" || $stringExploded[1] == "0"){
+                continue;
+            }
+            else
+            {
+                $associativeArray = [
+                    $stringExploded[0] => $stringExploded[1]
+                ];
+                $socialMedia = $socialMedia + $associativeArray;
+            }
+        }
+        // $socialmedia json limpo e tratado
     }
 }

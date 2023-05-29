@@ -27,4 +27,8 @@ class CampaignParticipants extends Model
     {
         return $this->belongsTo(Campaign::class, 'campaign_id');
     }
+
+
+   
+
 }
