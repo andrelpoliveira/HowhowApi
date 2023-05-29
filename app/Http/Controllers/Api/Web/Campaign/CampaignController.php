@@ -63,7 +63,7 @@ class CampaignController extends Controller
                 'campaign_purpose'  => $request->campaign_purpose,
                 'states'            => json_encode($request->states),
                 'line_of_business'  => $user->line_of_business,
-                'social_media'      => json_encode($request->social_media),
+                'social_media'      => json_encode($request->social_media , JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
                 'content_type'      => json_encode($request->content_type),
                 'private'           => $request->private,
                 'campaign_photo'    => $campaign_photo_path

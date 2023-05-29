@@ -44,9 +44,17 @@ class UserController extends Controller
             {
                 $user->about_me = $request->about_me;
             }
+            if($request->exists('country'))
+            {
+                $user->country = $request->country;
+            }
+            if($request->exists('state'))
+            {
+                $user->state = $request->state;
+            }
             if($request->exists('adress'))
             {
-                $user->adress = $request->adress;
+                $user->adress = json_encode($request->adress, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
             }
             if($request->exists('background_photo'))
             {
@@ -141,7 +149,18 @@ class UserController extends Controller
             {
                 $user->landline = $request->landline;
             }
-            
+            if($request->exists('country'))
+            {
+                $user->country = $request->country;
+            }
+            if($request->exists('state'))
+            {
+                $user->state = $request->state;
+            }
+            if($request->exists('adress'))
+            {
+                $user->adress = json_encode($request->adress, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
+            }
             if($request->exists('profile_photo'))
             {
                 $image = $request->profile_photo;
@@ -204,9 +223,17 @@ class UserController extends Controller
             {
                 $user->business_name = $request->business_name;
             }
+            if($request->exists('country'))
+            {
+                $user->country = $request->country;
+            }
+            if($request->exists('state'))
+            {
+                $user->state = $request->state;
+            }
             if($request->exists('adress'))
             {
-                $user->adress = $request->adress;
+                $user->adress = json_encode($request->adress, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
             }
             if($request->exists('phone'))
             {
@@ -302,9 +329,17 @@ class UserController extends Controller
             {
                 $user->business_name = $request->business_name;
             }
+            if($request->exists('country'))
+            {
+                $user->country = $request->country;
+            }
+            if($request->exists('state'))
+            {
+                $user->state = $request->state;
+            }
             if($request->exists('adress'))
             {
-                $user->adress = $request->adress;
+                $user->adress = json_encode($request->adress, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
             }
             if($request->exists('phone'))
             {
