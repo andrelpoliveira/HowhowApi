@@ -179,10 +179,6 @@ class UserController extends Controller
             {
                 $user->password = Hash::make($request->password);
             }
-            if($request->exists('country'))
-            {
-                $user->country = $request->country;
-            }
             if($request->exists('about_me'))
             {
                 $user->about_me = $request->about_me;
@@ -266,10 +262,6 @@ class UserController extends Controller
             if($request->exists('language'))
             {
                 $user->language = $request->language;
-            }
-            if($request->exists('country'))
-            {
-                $user->country = $request->country;
             }
             if($request->exists('password'))
             {
@@ -364,10 +356,6 @@ class UserController extends Controller
             if($request->exists('language'))
             {
                 $user->language = $request->language;
-            }
-            if($request->exists('country'))
-            {
-                $user->country = $request->country;
             }
             if($request->exists('password'))
             {

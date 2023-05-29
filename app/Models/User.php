@@ -43,6 +43,8 @@ class User extends Authenticatable implements JWTSubject
         'adress',
         'birthday',
         'landline',
+        'country',
+        'state',
         'phone',
         'phone2',
         'theme',
@@ -51,7 +53,8 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at',
         'remember_token',
         'current_team_id',
-        'profile_photo_path'
+        'profile_photo_path',
+        'background_photo_path'
     ];
 
     /**
