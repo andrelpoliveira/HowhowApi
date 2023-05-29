@@ -20,6 +20,7 @@ class Campaign extends Model
         'brand_name',
         'brand_info',
         'campaign_purpose',
+        'country',
         'states',
         'line_of_business',
         'social_media',

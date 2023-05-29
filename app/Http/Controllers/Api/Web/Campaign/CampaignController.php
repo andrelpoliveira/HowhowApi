@@ -140,23 +140,15 @@ class CampaignController extends Controller
                 }
 
                 if ($request->exists('states')) {
-                    $campaign->states = json_encode($request->states);
+                    $campaign->states = json_encode($request->states, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
                 }
 
                 if ($request->exists('line_of_business')) {
-                    $campaign->line_of_business = json_encode($request->line_of_business);
-                }
-
-                if ($request->exists('category')) {
-                    $campaign->category = json_encode($request->category);
+                    $campaign->line_of_business = $request->line_of_business;
                 }
 
                 if ($request->exists('social_media')) {
-                    $campaign->social_media = json_encode($request->social_media);
-                }
-
-                if ($request->exists('type')) {
-                    $campaign->type = $request->type;
+                    $campaign->social_media = json_encode($request->social_media, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
                 }
 
                 if ($request->exists('private')) {
