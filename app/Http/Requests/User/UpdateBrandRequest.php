@@ -25,6 +25,7 @@ class UpdateBrandRequest extends FormRequest
         return [
             'name_artistic'     => ['nullable'  ,   'string'    ,  'unique:users' ,'max:255'], 
             'business_name'     => ['nullable'  ,   'string'    ,  'unique:users' ,'max:255'],
+            'adress'            => ['nullable'],
             'about_me'          => ['string', 'nullable'],  
             'phone'             => ['nullable'  ,   'string'    ,   'max:255' , 'unique:users'],
             'phone2'            => ['nullable'  ,   'string'    ,   'max:255' , 'unique:users'], 

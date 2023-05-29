@@ -44,7 +44,10 @@ class UserController extends Controller
             {
                 $user->about_me = $request->about_me;
             }
-            
+            if($request->exists('adress'))
+            {
+                $user->adress = $request->adress;
+            }
             if($request->exists('background_photo'))
             {
                 $image = $request->background_photo;
@@ -101,7 +104,10 @@ class UserController extends Controller
             {
                 $user->name_artistic = $request->name_artistic;
             }
-
+            if($request->exists('adress'))
+            {
+                $user->adress = $request->adress;
+            }
             if($request->exists('language'))
             {
                 $user->language = $request->language;
@@ -198,6 +204,10 @@ class UserController extends Controller
             {
                 $user->business_name = $request->business_name;
             }
+            if($request->exists('adress'))
+            {
+                $user->adress = $request->adress;
+            }
             if($request->exists('phone'))
             {
                 $user->phone = $request->phone;
@@ -291,6 +301,10 @@ class UserController extends Controller
             if($request->exists('business_name'))
             {
                 $user->business_name = $request->business_name;
+            }
+            if($request->exists('adress'))
+            {
+                $user->adress = $request->adress;
             }
             if($request->exists('phone'))
             {
