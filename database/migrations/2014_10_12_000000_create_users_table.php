@@ -16,24 +16,30 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('name_artistic')->unique()->nullable();
             $table->string('business_name')->unique()->nullable();
-            $table->string('username')->unique()->nullable();
 
+            $table->string('category')->nullable();
             $table->string('line_of_business')->nullable();
 
             $table->string('email')->unique();
+            $table->string('email2')->nullable()->unique();
             $table->string('password');
             $table->string('role')->nullable();
-            $table->string('category')->nullable();
-            $table->string('gender')->nullable();
+            $table->string('gender')->references('gender')->on('genders');
 
             $table->string('cpf')->unique()->nullable();
             $table->string('cnpj')->unique()->nullable();
 
-            $table->string('adress')->nullable();
+            $table->string('country')->references('country')->on('countries');
+            $table->string('state')->references('state')->on('states');
+            $table->json('adress')->nullable();
+            
             $table->date('birthday')->nullable();
+
+            $table->longText('about_me')->nullable();
 
             $table->string('landline')->unique()->nullable();
             $table->string('phone')->unique();
+            $table->string('phone2')->unique()->nullable();
 
             $table->string('theme')->default('light');
             $table->string('language')->nullable();
@@ -45,7 +51,6 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('background_photo_path', 2048)->nullable();
-            $table->string('photo_folder', 2048)->nullable();
             $table->timestamps();
         });
     }

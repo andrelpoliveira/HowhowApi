@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('influencer_id')->references('id')->on('users');
             $table->unsignedInteger('campaign_id')->references('id')->on('campaigns');
             $table->string('confirmationStatus')->default('0');
-            $table->boolean('was_invited')->nullable();
+            $table->boolean('was_invited')->default(0);
             $table->timestamps();
         });
     }
