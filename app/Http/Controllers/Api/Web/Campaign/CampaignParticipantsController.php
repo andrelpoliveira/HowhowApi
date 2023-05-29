@@ -33,7 +33,7 @@ class CampaignParticipantsController extends Controller
 
         if($user->role == 'influencer')
         {
-            CampaignParticipants::firstOrCreate(['influencer_id' => $user->id, 'campaign_id' => $request->campaign_id]);
+            CampaignParticipants::firstOrCreate(['influencer_id' => $user->id, 'campaign_id' => $request->campaign_id] , ['influencer_id' => $user->id, 'campaign_id' => $request->campaign_id]);
         }
         else
         {
