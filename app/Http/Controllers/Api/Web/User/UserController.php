@@ -96,7 +96,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         $request->validated();
-
+                        
         if($user->role == 'influencer')
         {
 

@@ -37,7 +37,7 @@ class UpdateInfluencerRequest extends FormRequest
             'country'                       => ['nullable'],
             'background_photo'              => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
             'background_photo'              => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
-            'password'                      => ['confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
+            'password'                      => ['confirmed',    Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
         ];
     }
 }
