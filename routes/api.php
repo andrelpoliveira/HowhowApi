@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/aaaaaaa', [CampaignController::class , 'tratamentojson']);
 
 //não tem login, aceita login de todos os tipos de usuarios
 Route::post('/login', [LoginController::class, 'login']);
