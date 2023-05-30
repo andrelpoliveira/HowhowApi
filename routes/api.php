@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Web\Campaign\CampaignController;
 use App\Http\Controllers\Api\Web\Campaign\CampaignParticipantsController;
 use App\Http\Controllers\Api\Web\Categories\CategoriesController;
 use App\Http\Controllers\Api\Web\Categories\LineOfBusinessController;
+use App\Http\Controllers\GendersController;
 use App\Http\Controllers\StatesController;
 use App\Models\CampaignParticipants;
 use Illuminate\Http\Request;
@@ -25,15 +26,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/aaaaaaa', [CampaignController::class , 'tratamentojson']);
 
 //não tem login, aceita login de todos os tipos de usuarios
 Route::post('/login', [LoginController::class, 'login']);
 
-
-Route::get('/categories', [CategoriesController::class, 'getAllCategories']);
-Route::get('/lineOfBusiness', [LineOfBusinessController::class, 'getAllLines']);
-Route::get('/getStates', [StatesController::class, 'getStates']);
+Route::get('/genders'           ,   [GendersController::class, 'getGenders']);
+Route::get('/categories'        ,   [CategoriesController::class, 'getAllCategories']);
+Route::get('/lineOfBusiness'    ,   [LineOfBusinessController::class, 'getAllLines']);
+Route::get('/getStates'         ,   [StatesController::class, 'getStates']);
 /*
 Rotas que cuidam do registro do usuario
 todas começam com o prefixo de /register
@@ -103,10 +103,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'brand'], function () {
         Route::get('/getInfluencers',   [UserController::class, 'getInfluencers']);
     });
-
-
-
-
 
     Route::post('/logout', [LoginController::class, 'logout']);
 });
