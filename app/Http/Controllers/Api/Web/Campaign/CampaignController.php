@@ -46,7 +46,7 @@ class CampaignController extends Controller
         $request->validated();
 
         $user = auth()->user();
-        //return dd($request->all());
+        //return dd($request->social_media);
         if($user->role == 'brand')
         {
             $image = $request->campaign_photo;
@@ -63,8 +63,8 @@ class CampaignController extends Controller
                 'campaign_purpose'  => $request->campaign_purpose,
                 'states'            => json_encode($request->states, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
                 'line_of_business'  => $user->line_of_business,
-                'social_media'      => json_encode($request->social_media, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
-                'content_type'      => json_encode($request->content_type, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
+                'social_media'      => $request->social_media,
+                'content_type'      => $request->content_type,
                 'private'           => $request->private,
                 'campaign_photo'    => $campaign_photo_path
             ];
