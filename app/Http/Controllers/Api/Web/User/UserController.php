@@ -106,7 +106,7 @@ class UserController extends Controller
             }
             if($request->exists('email2'))
             {
-                $user->phone2 = $request->email2;
+                $user->email2 = $request->email2;
             }
             if($request->exists('name_artistic'))
             {
@@ -120,27 +120,22 @@ class UserController extends Controller
             {
                 $user->language = $request->language;
             }
-
             if($request->exists('category'))
             {
-                $user->category = json_encode($request->category);
+                $user->category = $request->category;
             }
-            
             if($request->exists('cpf'))
             {
                 $user->cpf = $request->cpf;
             }
-
             if($request->exists('birthday'))
             {
                 $user->birthday = $request->birthday;
             }
-
             if($request->exists('phone'))
             {
                 $user->phone = $request->phone;
             }
-
             if($request->exists('phone2'))
             {
                 $user->phone2 = $request->phone2;
@@ -156,10 +151,6 @@ class UserController extends Controller
             if($request->exists('state'))
             {
                 $user->state = $request->state;
-            }
-            if($request->exists('adress'))
-            {
-                $user->adress = json_encode($request->adress, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
             }
             if($request->exists('profile_photo'))
             {
@@ -229,7 +220,7 @@ class UserController extends Controller
             }
             if($request->exists('adress'))
             {
-                $user->adress = json_encode($request->adress, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
+                $user->adress = $request->adress;
             }
             if($request->exists('phone'))
             {
@@ -257,7 +248,7 @@ class UserController extends Controller
             }
             if($request->exists('email2'))
             {
-                $user->phone2 = $request->email2;
+                $user->email2 = $request->email2;
             }
             if($request->exists('language'))
             {
@@ -331,7 +322,7 @@ class UserController extends Controller
             }
             if($request->exists('adress'))
             {
-                $user->adress = json_encode($request->adress, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE);
+                $user->adress = $request->adress;
             }
             if($request->exists('phone'))
             {

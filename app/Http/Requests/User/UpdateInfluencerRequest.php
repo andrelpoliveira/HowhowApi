@@ -12,7 +12,7 @@ class UpdateInfluencerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,12 +23,13 @@ class UpdateInfluencerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'                         => ['email'     ,   'unique:users'],
-            'name_artistic'                 => ['string'    ,   'unique:users'],
-            'username'                      => ['string'    ,   'unique:users'],
-            'language'                      => ['string'],  
-            'category'                      => ['string'],  
-            'adress'                        => ['string'], 
+            'email'                         => ['nullable', 'email'     ,   'unique:users'],
+            'email2'                        => ['nullable', 'email'    ,   'unique:users'],
+            'name_artistic'                 => ['nullable', 'string'    ,   'unique:users'],
+            'username'                      => ['nullable', 'string'    ,   'unique:users'],
+            'language'                      => ['nullable', 'string'],  
+            'category'                      => ['nullable', 'string'],  
+            'adress'                        => ['nullable', 'string'], 
             'cpf'                           => ['nullable'  ,   'string'],
             'birthday'                      => ['nullable'  ,   'string'],
             'phone'                         => ['string'    ,   'unique:users'  ,   'nullable'],
@@ -37,7 +38,7 @@ class UpdateInfluencerRequest extends FormRequest
             'country'                       => ['nullable'],
             'background_photo'              => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
             'background_photo'              => ['nullable'  ,   'max:5120'  ,   'mimes:png,jpg,jpeg'],
-            'password'                      => ['confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
+            'password'                      => ['nullable'  ,   'string'    ,   'max:255' , 'confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
         ];
     }
 }

@@ -33,7 +33,7 @@ class UpdateBrandRequest extends FormRequest
             'cnpj'              => ['nullable'  ,   'string'    ,   'max:18'  , 'unique:users' , 'min:18'], 
             'line_of_business'  => ['nullable'  ,   'string'    ,   'max:255'], 
             'email'             => ['nullable'  ,   'string'    ,   'unique:users'],
-            'phone2'            => ['nullable'  ,   'string'    ,   'max:255' , 'unique:users'],
+            'email2'            => ['nullable'  ,   'string'    ,   'max:255' , 'unique:users'],
             'country'           => ['nullable'],
             'language'          => ['string'],  
             'password'          => ['nullable'  ,   'string'    ,   'max:255' , 'confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
