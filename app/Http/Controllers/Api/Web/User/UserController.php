@@ -120,6 +120,10 @@ class UserController extends Controller
             {
                 $user->language = $request->language;
             }
+            if($request->exists('gender'))
+            {
+                $user->gender = $request->gender;
+            }
             if($request->exists('category'))
             {
                 $user->category = $request->category;

@@ -30,6 +30,7 @@ class UpdateInfluencerRequest extends FormRequest
             'language'                      => ['nullable', 'string'],  
             'category'                      => ['nullable', 'string'],  
             'adress'                        => ['nullable', 'string'], 
+            'gender'                        => ['nullable', 'string'],
             'cpf'                           => ['nullable'  ,   'string'],
             'birthday'                      => ['nullable'  ,   'string'],
             'phone'                         => ['string'    ,   'unique:users'  ,   'nullable'],
