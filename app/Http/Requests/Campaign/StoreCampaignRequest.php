@@ -22,12 +22,11 @@ class StoreCampaignRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'              =>  ['required' , 'string', 'unique:campaigns'],
-            'campaign_purpose'  =>  ['required' , 'string'],
-            'states'            =>  ['string'],
+            'name'              =>  ['required'    ,    'string'    ,   'unique:campaigns'],
+            'campaign_purpose'  =>  ['required'    ,    'string'],
+            'states'            =>  ['nullable'    ,    'string'],
             'social_media'      =>  ['required'],
             'content_type'      =>  ['required'],
-            'type'              =>  ['nullable'],
             'private'           =>  ['nullable'],
             'campaign_photo'    =>  ['max:5120']
         ];
