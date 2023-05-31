@@ -27,7 +27,7 @@ class UpdateProfileResource extends JsonResource
             'cnpj'                              =>  $this->cnpj,
             'country'                           =>  $this->country,
             'state'                             =>  $this->state,
-            'adress'                            =>  $this->adress,
+            'adress'                            =>  json_decode($this->adress),
             'birthday'                          =>  $this->birthday,
             'landline'                          =>  $this->landline,
             'phone'                             =>  $this->phone,

@@ -48,11 +48,11 @@ Route::group(['prefix' => 'register'], function () {
 });
 
 
-/*
-Rotas aonde precisa estar autenticado para 
-que se obtenha uma resposta da api
-
+/** 
+ * Rotas aonde precisa estar autenticado para 
+ * que se obtenha uma resposta da api
 */
+
 Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/getSelf', [UserController::class, 'getSelf']);

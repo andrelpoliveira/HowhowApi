@@ -23,14 +23,14 @@ class StoreBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_artistic'     => ['required' , 'string' , 'max:255'], 
-            'business_name'     => ['required' , 'string' , 'max:255'], 
-            'phone'             => ['required' , 'string' , 'max:255'],
-            'landline'          => ['string'   , 'unique:users'], 
-            'cnpj'              => ['required' , 'string' , 'max:18'  , 'unique:users' , 'min:18'],
-            'line_of_business'  => ['required' , 'string' , 'max:255'], 
-            'email'             => ['required' , 'string' , 'max:255' , 'unique:users'], 
-            'password'          => ['required' , 'confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
+            'email'             => ['required'  ,   'string'    ,   'max:255'   ,   'unique:users'], 
+            'password'          => ['required'  ,   'confirmed',    Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
+            'name_artistic'     => ['required'  ,   'string'    ,   'max:255'], 
+            'business_name'     => ['required'  ,   'string'    ,   'max:255'], 
+            'phone'             => ['required'  ,   'string'    ,   'max:255'],
+            'landline'          => ['nullable'  ,   'string'    ,   'max:255'   ,   'unique:users'], 
+            'cnpj'              => ['required'  ,   'string'    ,   'max:18'    ,   'unique:users'  ,   'min:18'],
+            'line_of_business'  => ['required'  ,   'string'    ,   'max:255'], 
         ];
     }
 }
