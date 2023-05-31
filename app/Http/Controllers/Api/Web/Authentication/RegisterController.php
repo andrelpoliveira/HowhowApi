@@ -45,18 +45,21 @@ class RegisterController extends Controller
     public function registerBrand(StoreBrandRequest $request)
     {
         
-        $request->validated($request->all());
+        $request->validated();
 
-        if(!$user = User::create([
+        $data = [
             'name_artistic'     => $request->name_artistic,
             'business_name'     => $request->business_name,
             'phone'             => $request->phone,
+            'landline'          => $request->landline,
             'cnpj'              => $request->cnpj,
             'line_of_business'  => $request->line_of_business,
             'email'             => $request->email,
             'password'          => Hash::make($request->password),
             'role'              => 'brand'
-        ]))
+        ];
+
+        if(!$user = User::create($data))
         {
             return $this->errorAtCreatingUser();
         }
@@ -70,20 +73,21 @@ class RegisterController extends Controller
     public function registerAgency(StoreAgencyRequest $request)
     {
 
-        $request->validated($request->all());
+        $request->validated();
 
-        //To-do trocar Agência por locale futuramente
-
-        if(!$user = User::create([
+        $data = [
             'name_artistic'     => $request->name_artistic,
             'business_name'     => $request->business_name,
             'phone'             => $request->phone,
+            'landline'          => $request->landline,
             'cnpj'              => $request->cnpj,
             'line_of_business'  => 'Agência',
             'email'             => $request->email,
             'password'          => Hash::make($request->password),
             'role'              => 'agency'
-        ]))
+            ];  
+
+        if(!$user = User::create($data))
         {
             return $this->errorAtCreatingUser();
         }

@@ -29,7 +29,7 @@ class StoreAgencyRequest extends FormRequest
             'landline'          => ['nullable'  ,   'string'    ,   'max:255'   ,   'unique:users'],
             'cnpj'              => ['required'  ,   'string'    ,   'max:18'    ,   'unique:users' , 'min:18'],  
             'email'             => ['required'  ,   'string'    ,   'max:255'   ,   'unique:users'], 
-            'password'          => ['required'  ,   'confirmed', Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
+            'password'          => ['required'  ,   'confirmed' ,   Password::min(8)->mixedCase()->numbers()->letters()->symbols()],
         ];
     }
 }

@@ -34,7 +34,7 @@ class LoginController extends Controller
         
         return $this->success([
             'token' => $token
-        ], 'Sucess');
+        ], 'Success');
 
     }
 

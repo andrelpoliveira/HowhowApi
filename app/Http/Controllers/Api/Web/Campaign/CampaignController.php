@@ -34,7 +34,7 @@ class CampaignController extends Controller
         if ($user->role == 'brand') {
             return CampaignListResource::collection(Campaign::whereBelongsTo($user)->get());
         } else {
-            return CampaignListResource::collection(Campaign::where(['private' => 0])->get());
+            return CampaignListResource::collection(Campaign::where(['private' => 0, 'ended' => 0])->get());
         }
     }
 
@@ -49,7 +49,6 @@ class CampaignController extends Controller
         //return dd($request->social_media);
         if($user->role == 'brand')
         {
-            //olhar posteriormente como só enviar a foto para a S3 após o registro da campanha ser feito com sucesso
             $image = $request->campaign_photo;
             $uuidFolder = Uuid::uuid4()->toString();
             $uuidFileName = Uuid::uuid4()->toString();
@@ -60,7 +59,6 @@ class CampaignController extends Controller
             $searchFor = array("{", "}", '""', '"');
             $stringHandled = str_replace($searchFor, "" , $request->content_type);
             $stringHandled2 = explode(',' ,$stringHandled);
-
             //precisa
             $socialMedia = [];
             // X ira ser divido em string e valor que ira para um array nomeado, a string sera o nome da casa e o valor sera atribuido
@@ -78,7 +76,6 @@ class CampaignController extends Controller
                     $socialMedia = $socialMedia + $associativeArray;
                 }
             }
-            
 
             $data = [
                 'marca_id'          => $user->id,
@@ -89,7 +86,7 @@ class CampaignController extends Controller
                 'states'            => json_encode($request->states, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
                 'line_of_business'  => $user->line_of_business,
                 'social_media'      => $request->social_media,
-                'content_type'      => $request->content_type,
+                'content_type'      => json_encode($socialMedia, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
                 'private'           => $request->private,
                 'campaign_photo'    => $campaign_photo_path
             ];
@@ -109,24 +106,31 @@ class CampaignController extends Controller
     public function show(ShowCampaignRequest $request)
     {
         $user = auth()->user();
-        $request->validated($request->all());
+        $request->validated();
 
-        if ($user->role == 'brand') {
-            $campaign = Campaign::where(['name' => $request->name])->first();
+        $campaign = Campaign;
 
-            if ($campaign->marca_id == $user->id) {
-                $participants = CampaignParticipants::where(['campaign_id' => $campaign->id])->get();
-
-                return $this->success([
-                    'campaign'      => $campaign,
-                    'participants'  => $participants
-                ]);
-            } else {
-                return $this->brandDosentOwnCampaign();
-            }
-        } else {
-            return CampaignListResource::collection(Campaign::where(['name' => $request->name])->first());
+        if(!$campaign->where(['name' => $request->name])->first())
+        {
+            
         }
+
+        // if ($user->role == 'brand') {
+        //     $campaign = Campaign::where(['name' => $request->name])->first();
+
+        //     if ($campaign->marca_id == $user->id) {
+        //         $participants = CampaignParticipants::where(['campaign_id' => $campaign->id])->get();
+
+        //         return $this->success([
+        //             'campaign'      => $campaign,
+        //             'participants'  => $participants
+        //         ]);
+        //     } else {
+        //         return $this->brandDosentOwnCampaign();
+        //     }
+        // } else {
+        //     return CampaignListResource::collection(Campaign::where(['name' => $request->name])->first());
+        // }
     }
 
     /**
