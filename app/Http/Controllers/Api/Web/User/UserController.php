@@ -414,6 +414,8 @@ class UserController extends Controller
 
     public function getProfile()
     {
+        $user = auth()->user();
+        // dd($user->adress);
         return new UpdateProfileResource(auth()->user());
     }
 }

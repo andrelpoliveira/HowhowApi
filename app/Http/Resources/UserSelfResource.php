@@ -18,7 +18,6 @@ class UserSelfResource extends JsonResource
             'name'                              =>  $this->name,
             'name_artistic'                     =>  $this->name_artistic,
             'business_name'                     =>  $this->business_name,
-            'username'                          =>  $this->username,
             'line_of_business'                  =>  $this->line_of_business,
             'email'                             =>  $this->email,
             'role'                              =>  $this->role,
