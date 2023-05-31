@@ -34,7 +34,7 @@ class CampaignController extends Controller
         if ($user->role == 'brand') {
             return CampaignListResource::collection(Campaign::whereBelongsTo($user)->get());
         } else {
-            return CampaignListResource::collection(Campaign::where(['private' => 0, 'ended' => 0])->get());
+            return CampaignListResource::collection(Campaign::where(['private' => 0])->get());
         }
     }
 
@@ -60,7 +60,7 @@ class CampaignController extends Controller
             $stringHandled = str_replace($searchFor, "" , $request->content_type);
             $stringHandled2 = explode(',' ,$stringHandled);
             //precisa
-            $socialMedia = [];
+            $contentType = [];
             // X ira ser divido em string e valor que ira para um array nomeado, a string sera o nome da casa e o valor sera atribuido
             foreach($stringHandled2 as $x)
             {
@@ -73,7 +73,7 @@ class CampaignController extends Controller
                     $associativeArray = [
                         $stringExploded[0] => $stringExploded[1]
                     ];
-                    $socialMedia = $socialMedia + $associativeArray;
+                    $contentType = $contentType + $associativeArray;
                 }
             }
 
@@ -86,7 +86,7 @@ class CampaignController extends Controller
                 'states'            => json_encode($request->states, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
                 'line_of_business'  => $user->line_of_business,
                 'social_media'      => $request->social_media,
-                'content_type'      => json_encode($socialMedia, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
+                'content_type'      => json_encode($contentType, JSON_UNESCAPED_SLASHES, JSON_UNESCAPED_UNICODE),
                 'private'           => $request->private,
                 'campaign_photo'    => $campaign_photo_path
             ];
