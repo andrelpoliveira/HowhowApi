@@ -18,7 +18,6 @@ class CampaignListResource extends JsonResource
             'name'              => $this->name,
             'brand_name'        => $this->brand_name,
             'budget'            => $this->budget,
-            'category'          => $this->category,
             'line_of_business'  => $this->line_of_business,
             'campaign_photo'    => $this->campaign_photo,
             'private'           => $this->private,

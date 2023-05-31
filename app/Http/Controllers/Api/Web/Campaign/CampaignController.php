@@ -32,10 +32,9 @@ class CampaignController extends Controller
         $user = auth()->user();
 
         if ($user->role == 'brand') {
-            dd(Campaign::whereBelongsTo($user)->get());
             return CampaignListResource::collection(Campaign::whereBelongsTo($user)->get());
         } else {
-            return CampaignListResource::collection(Campaign::where(['private' => 0])->get());
+            return CampaignListResource::collection(Campaign::where(['private' => 0, 'ended' => 0])->get());
         }
     }
 
@@ -107,24 +106,31 @@ class CampaignController extends Controller
     public function show(ShowCampaignRequest $request)
     {
         $user = auth()->user();
-        $request->validated($request->all());
+        $request->validated();
 
-        if ($user->role == 'brand') {
-            $campaign = Campaign::where(['name' => $request->name])->first();
+        $campaign = Campaign;
 
-            if ($campaign->marca_id == $user->id) {
-                $participants = CampaignParticipants::where(['campaign_id' => $campaign->id])->get();
-
-                return $this->success([
-                    'campaign'      => $campaign,
-                    'participants'  => $participants
-                ]);
-            } else {
-                return $this->brandDosentOwnCampaign();
-            }
-        } else {
-            return CampaignListResource::collection(Campaign::where(['name' => $request->name])->first());
+        if(!$campaign->where(['name' => $request->name])->first())
+        {
+            
         }
+
+        // if ($user->role == 'brand') {
+        //     $campaign = Campaign::where(['name' => $request->name])->first();
+
+        //     if ($campaign->marca_id == $user->id) {
+        //         $participants = CampaignParticipants::where(['campaign_id' => $campaign->id])->get();
+
+        //         return $this->success([
+        //             'campaign'      => $campaign,
+        //             'participants'  => $participants
+        //         ]);
+        //     } else {
+        //         return $this->brandDosentOwnCampaign();
+        //     }
+        // } else {
+        //     return CampaignListResource::collection(Campaign::where(['name' => $request->name])->first());
+        // }
     }
 
     /**
