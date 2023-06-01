@@ -22,18 +22,17 @@ class UpdateCampaignRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'                =>  ['required'],
-            'name'              =>  ['string', 'unique:campaigns'],
-            'budget'            =>  ['string'], 
-            'brand_info'        =>  ['string'],
-            'campaign_purpose'  =>  ['string'],
-            'min_reach'         =>  ['string'],
-            'states'            =>  ['string'],
-            'line_of_business'  =>  ['string'],
-            'category'          =>  ['string'],
-            'social_media'      =>  ['string'],
-            'type'              =>  ['string'],
-            'private'           =>  ['string'],
+            'campaign_name'     =>  ['required'],
+            'name'              =>  ['nullable'   ,   'string', 'unique:campaigns'],
+            'campaign_purpose'  =>  ['nullable'   ,   'string'],
+            'country'           =>  ['nullable'   ,   'string'],
+            'states'            =>  ['nullable'   ,   'string'],
+            'line_of_business'  =>  ['nullable'   ,   'string'],
+            'social_media'      =>  ['nullable'   ,   'string'],
+            'content_type'      =>  ['nullable'],
+            'private'           =>  ['nullable'   ,   'string'],
+            'ended'             =>  ['nullable'],
+            'campaign_photo'    =>  ['nullable'   ,   'max:5120'],
             'password'          =>  ['required']
         ];
     }
