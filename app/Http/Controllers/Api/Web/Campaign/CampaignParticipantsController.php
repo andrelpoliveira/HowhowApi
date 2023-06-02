@@ -59,17 +59,39 @@ class CampaignParticipantsController extends Controller
     public function changeInfluencerConfirmationStatus(ChangeStatusRequest $request)
     {
         $user = auth()->user();
-        $request->validated($request->all());
-
+        $request->validated();
         /*
         *  0 -> influenciador entrou e está esperando confirmação da empresa 
         *  1 -> influenciador Aceito
         *  2 -> influenciador recusado
         */
-
         if($user->role == 'brand')
         {
-            CampaignParticipants::where(['influencer_id' => $request->influencer_id, 'campaign_id' => $request->campaign_id])->update(['confirmationStatus' => $request->status]);
+            $participation  =   CampaignParticipants::where(['id' => $request->participation_id])->with(['campaign' , 'influencer'])->first();
+            if($participation->campaign->marca_id == $user->id)
+            {
+                if($request->status == 'accepted')
+                {
+                    $participation->confirmationStatus == 'accepted';
+                    $participation->save();
+
+                    return $this->influencerAccepted();
+                }
+                elseif ($request->status == 'refused')
+                {
+                    $influencerName_artistic = $participation->influencer->name_artistic;
+                    $influencerName          = $participation->influencer->name;
+                    
+                    $participation->delete();
+                    
+                    return $this->influencerRefused($influencerName_artistic, $influencerName);
+                }
+
+            }
+            else
+            {
+                return $this->brandDosentOwnCampaign();
+            }
         }
         else
         {

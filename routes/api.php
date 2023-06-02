@@ -94,7 +94,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/join',        [CampaignParticipantsController::class, 'joinCampaign']);
 
         //Muda o estado de confirmação do influenciador 
-        Route::patch('/changeConfirmaitonStatus', [CampaignParticipantsController::class, 'changeInfluencerConfirmationStatus']);
+        Route::post('/changeConfirmaitonStatus', [CampaignParticipantsController::class, 'changeInfluencerConfirmationStatus']);
         
         //Pega aonde o influenciador está participando e retorna todas as campanhas e seu status de confirmação
         Route::get('/getParticipations', [CampaignParticipantsController::class, 'whereInfluencerParticipate']);

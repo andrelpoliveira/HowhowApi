@@ -211,4 +211,18 @@ trait HttpResponses {
             'success' => 'success at joining campaign ' . $campaignName
         ], 200);
     }
+
+    protected function influencerAccepted()
+    {
+        return response()->json([
+            'success' => 'Influencer accepted into campaign'
+        ], 200);
+    }
+
+    protected function influencerRefused($influencerName_artistic , $influencerName)
+    {
+        return response()->json([
+            'sucess' => 'Influencer '.$influencerName_artistic. ' refused'
+        ], 200);
+    }
 }

@@ -22,9 +22,8 @@ class ChangeStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'influencer_id' =>  ['required'],
-            'campaign_id'   =>  ['required'],
-            'status'        =>  ['required']
+            'participation_id'    =>  ['required' , 'exists:campaign_participants,id'],
+            'status'              =>  ['required']
         ];
     }
 }
