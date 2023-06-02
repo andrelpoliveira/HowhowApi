@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Web\Campaign;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CampaignParticipants\JoinCampaignRequest;
 use App\Http\Requests\CampaignParticipants\ChangeStatusRequest;
+use App\Http\Resources\InfluencerParticipationsResource;
+use App\Models\Campaign;
 use App\Models\CampaignParticipants;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
@@ -18,10 +20,8 @@ class CampaignParticipantsController extends Controller
     public function whereInfluencerParticipate()
     {
         $user = auth()->user();
-        
-        $campaign = CampaignParticipants::where(['influencer_id' => $user->id])->with('campaigns')->get();
 
-        return $this->success($campaign);
+        return InfluencerParticipationsResource::collection( CampaignParticipants::where(['influencer_id' => $user->id])->with('campaign')->get());
     }
 
     /**
@@ -30,17 +30,29 @@ class CampaignParticipantsController extends Controller
     public function joinCampaign(JoinCampaignRequest $request)
     {
         $user = auth()->user();
-
-        if($user->role == 'influencer')
+        if($campaign = Campaign::where(['name' => $request->name])->first())
         {
-            CampaignParticipants::firstOrCreate(['influencer_id' => $user->id, 'campaign_id' => $request->campaign_id] , ['influencer_id' => $user->id, 'campaign_id' => $request->campaign_id]);
+            if($user->role == 'influencer')
+            {
+                if(!CampaignParticipants::firstOrCreate(['influencer_id' => $user->id, 'campaign_id' => $campaign->id] , ['influencer_id' => $user->id, 'campaign_id' => $campaign->id]))
+                {
+                    return $this->errorAtJoiningCampaign();
+                }
+                else
+                {
+                    return $this->successAtJoiningCampaign($campaign->name);
+                }
+            }
+            else
+            {
+                return $this->itsNotInfluencer();
+            }
         }
         else
         {
-            return $this->itsNotInfluencer();
+            return $this->campaignNotFound();
         }
-
-    }
+    }   
     /**
      * Muda o status de confirmação entre aceito ou recusado
      */

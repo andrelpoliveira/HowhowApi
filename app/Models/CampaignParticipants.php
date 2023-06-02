@@ -18,12 +18,12 @@ class CampaignParticipants extends Model
         'confirmationStatus'
     ];
 
-    public function influencerForeignKey(): BelongsTo
+    public function influencer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'influencer_id');
     }
 
-    public function campaignForeignKey(): BelongsTo
+    public function campaign(): BelongsTo
     {
         return $this->belongsTo(Campaign::class, 'campaign_id');
     }

@@ -183,4 +183,32 @@ trait HttpResponses {
             'error' => 'Error at creating campaign.'
         ], 500);
     }
+
+    protected function errorAtCampaignUpdate()
+    {
+        return response()->json([
+            'error' => 'Error at updating campaign'
+        ], 500);
+    }
+
+    protected function campaignNotFound()
+    {
+        return response()->json([
+            'error' => 'campaign not found'
+        ], 404);
+    }
+
+    protected function errorAtJoiningCampaign()
+    {
+        return response()->json([
+            'error' => 'Error at joining campaign'
+        ], 500);
+    }
+
+    protected function successAtJoiningCampaign($campaignName)
+    {
+        return response()->json([
+            'success' => 'success at joining campaign ' . $campaignName
+        ], 200);
+    }
 }

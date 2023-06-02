@@ -35,7 +35,7 @@ class CampaignController extends Controller
             dd(Campaign::whereBelongsTo($user)->get());
             return CampaignListResource::collection(Campaign::whereBelongsTo($user)->get());
         } else {
-            return CampaignListResource::collection(Campaign::where(['private' => 0])->get());
+            return CampaignListResource::collection(Campaign::where(['private' => 0 , 'ended' => 0])->get());
         }
     }
 
@@ -212,6 +212,16 @@ class CampaignController extends Controller
 
                         $campaign->campaign_photo = $campaign_photo_path;
                     }
+
+                    if(!$campaign->save())
+                    {
+                        return $this->successfullyUpdatedCampaign($campaign);
+                    }
+                    else
+                    {
+                        return $this->errorAtCampaignUpdate();
+                    }
+
                 }
                 else
                 {

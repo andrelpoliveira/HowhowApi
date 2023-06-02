@@ -22,7 +22,7 @@ class JoinCampaignRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'campaign_id' => ['required', 'string']
+            'name' => ['required', 'exists:campaigns,name']
         ];
     }
 }
