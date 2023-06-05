@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Web\Campaign\CampaignController;
 use App\Http\Controllers\Api\Web\Campaign\CampaignParticipantsController;
 use App\Http\Controllers\Api\Web\Categories\CategoriesController;
 use App\Http\Controllers\Api\Web\Categories\LineOfBusinessController;
+use App\Http\Controllers\CpmController;
 use App\Http\Controllers\GendersController;
 use App\Http\Controllers\StatesController;
 use App\Models\CampaignParticipants;
@@ -62,6 +63,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/seeOwnProfile', [UserController::class, 'getProfile']);
+
+        Route::get('/getCpm'    , [CpmController::class, 'getSelfCPM']);
+        Route::post('/updateCpm', [CpmController::class, 'createUpdateCPM']);
     });
 
 

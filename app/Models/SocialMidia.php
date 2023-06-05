@@ -21,6 +21,6 @@ class SocialMidia extends Model
 
     public function ownerUser(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'belongs_to');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -225,4 +225,15 @@ trait HttpResponses {
             'sucess' => 'Influencer '.$influencerName_artistic. ' refused'
         ], 200);
     }
+
+    /**
+     * relacionados a CPM
+     */
+
+    protected function userDosentHaveCpm()
+    {
+        return response()->json([
+            'error' => 'User dosen`t have a cpm registered'
+        ], 404);
+    }
 }

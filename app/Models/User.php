@@ -129,4 +129,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(SocialMidia::class);
     }
+
+    public function cpm(): HasOne 
+    {
+        return $this->hasOne(Cpm::class);
+    }
 }

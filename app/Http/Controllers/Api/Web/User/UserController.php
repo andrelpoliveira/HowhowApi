@@ -311,7 +311,7 @@ class UserController extends Controller
             
             if($request->exists('name_artistic'))
             {
-                $user->name_artistic = $request->paname_artisticssword;
+                $user->name_artistic = $request->name_artistic;
             }
             if($request->exists('business_name'))
             {
