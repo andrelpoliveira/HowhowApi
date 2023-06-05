@@ -14,6 +14,7 @@ use App\Models\CampaignParticipants;
 //models
 use App\Models\Campaign;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -124,5 +125,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(CampaignInvitation::class);
     }
 
-    
+    public function socialmidia(): HasOne
+    {
+        return $this->hasOne(SocialMidia::class);
+    }
 }

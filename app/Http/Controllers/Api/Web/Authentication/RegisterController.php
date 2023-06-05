@@ -10,6 +10,7 @@ use App\Http\Requests\Register\{
 };
 
 use App\Http\Controllers\Controller;
+use App\Models\SocialMidia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Traits\HttpResponses;
@@ -37,6 +38,10 @@ class RegisterController extends Controller
         }
         else
         {
+            $data2 = [
+                'user_id'   => $user->id
+            ];
+            SocialMidia::create($data2);
             return $this->userRegistered();
         }
 

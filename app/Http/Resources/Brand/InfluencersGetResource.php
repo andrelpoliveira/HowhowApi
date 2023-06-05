@@ -21,6 +21,15 @@ class InfluencersGetResource extends JsonResource
             'gender'                => $this->gender,
             'birthday'              => $this->birthday,
             'profile_photo_path'    => Storage::disk('s3')->temporaryUrl('profile_photo/'.$this->id.$this->profile_photo_path , now()->addMinutes(5)),
+            'background_photo_path' => Storage::disk('s3')->temporaryUrl('profile_photo/'.$this->id.$this->background_photo_path , now()->addMinutes(5)),
+            'state'                 => $this->state,
+            'social_midia'          => [
+                'youtube'   =>  json_decode($this->socialmidia->youtube_data),
+                'instagram' =>  json_decode($this->socialmidia->instangram_data),
+                'facebook'  =>  json_decode($this->socialmidia->facebook_data),
+                'twitch'    =>  json_decode($this->socialmidia->twitch_data),
+                'kwai'      =>  json_decode($this->socialmidia->kwai_data),
+            ] 
         ];
     }
 }

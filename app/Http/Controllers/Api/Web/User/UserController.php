@@ -408,7 +408,7 @@ class UserController extends Controller
         
         if($user->role == 'brand')
         {
-            return InfluencersGetResource::collection(User::where(['role' => 'influencer'])->get());
+            return InfluencersGetResource::collection(User::where(['role' => 'influencer'])->with('socialmidia')->get());
         }
         else
         {
