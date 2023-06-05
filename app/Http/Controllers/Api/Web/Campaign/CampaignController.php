@@ -32,7 +32,7 @@ class CampaignController extends Controller
         $user = auth()->user();
 
         if ($user->role == 'brand') {
-            dd(Campaign::whereBelongsTo($user)->get());
+            //dd(Campaign::whereBelongsTo($user)->get());
             return CampaignListResource::collection(Campaign::whereBelongsTo($user)->get());
         } else {
             return CampaignListResource::collection(Campaign::where(['private' => 0 , 'ended' => 0])->get());

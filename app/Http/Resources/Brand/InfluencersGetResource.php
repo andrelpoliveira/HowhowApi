@@ -23,6 +23,9 @@ class InfluencersGetResource extends JsonResource
             'profile_photo_path'    => Storage::disk('s3')->temporaryUrl('profile_photo/'.$this->id.$this->profile_photo_path , now()->addMinutes(5)),
             'background_photo_path' => Storage::disk('s3')->temporaryUrl('profile_photo/'.$this->id.$this->background_photo_path , now()->addMinutes(5)),
             'state'                 => $this->state,
+            'category'              => json_decode($this->category),
+            'language'              => $this->language,
+            'about_me'              => $this->about_me,
             'social_midia'          => [
                 'youtube'   =>  json_decode($this->socialmidia->youtube_data),
                 'instagram' =>  json_decode($this->socialmidia->instangram_data),
