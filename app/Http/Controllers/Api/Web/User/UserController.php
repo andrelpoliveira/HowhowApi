@@ -8,6 +8,7 @@ use App\Http\Requests\User\UpdateAgencyRequest;
 use App\Http\Requests\User\UpdateBrandRequest;
 use App\Http\Requests\User\UpdateInfluencerRequest;
 use App\Http\Requests\User\WrapUpRegisterRequest;
+use App\Http\Resources\Brand\InfluencersGetResource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\UpdateProfileResource;
 use App\Http\Resources\UserSelfResource;
@@ -407,7 +408,7 @@ class UserController extends Controller
         
         if($user->role == 'brand')
         {
-            return CategoriesResource::collection(User::where(['role' => 'influencer'])->get());
+            return InfluencersGetResource::collection(User::where(['role' => 'influencer'])->get());
         }
         else
         {
